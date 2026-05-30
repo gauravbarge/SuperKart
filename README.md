@@ -41,7 +41,7 @@ SuperKart is a retail chain operating supermarkets and food marts across Tier 1,
 | Metric | Value |
 |---|---|
 | Dataset size | 8,763 rows × 12 columns |
-| Target variable | `Product_Store_Sales_Total` (₹) |
+| Target variable | `Product_Store_Sales_Total` ($) |
 | Problem type | Regression |
 | Best model | Random Forest (Tuned) |
 | Best Test R² | **0.6672** |
@@ -77,35 +77,35 @@ The solution is not just a notebook — it is a **deployed forecasting system** 
 | `Product_Sugar_Content` | string | `Low Sugar`, `Regular`, `No Sugar` (also `reg` — standardised to `Regular`) |
 | `Product_Allocated_Area` | float | Ratio of product's display area to total store display area. Range: 0.0 – 0.33 |
 | `Product_Type` | string | One of 16 categories: Fruits and Vegetables, Snack Foods, Household, Frozen Foods, Dairy, Canned, Baking Goods, Health and Hygiene, Soft Drinks, Meat, Breads, Hard Drinks, Others, Starchy Foods, Breakfast, Seafood |
-| `Product_MRP` | float | Maximum Retail Price in ₹. Range: 31 – 267 |
+| `Product_MRP` | float | Maximum Retail Price in $. Range: 31 – 267 |
 | `Store_Id` | string | `OUT001`, `OUT002`, `OUT003`, `OUT004` |
 | `Store_Establishment_Year` | int | Year the store was established. Range: 1987 – 2009 |
 | `Store_Size` | string | `Small`, `Medium`, `High` |
 | `Store_Location_City_Type` | string | `Tier 1`, `Tier 2`, `Tier 3` |
 | `Store_Type` | string | `Food Mart`, `Supermarket Type1`, `Supermarket Type2`, `Departmental Store` |
-| `Product_Store_Sales_Total` | float | **TARGET** — Total revenue generated (₹). Range: ₹33 – ₹8,000. Mean: ₹3,464. Median: ₹3,452 |
+| `Product_Store_Sales_Total` | float | **TARGET** — Total revenue generated ($). Range: $33 – $8,000. Mean: $3,464. Median: $3,452 |
 
 ### Store Summary
 
 | Store ID | Type | City Tier | Size | Est. Year | Age (2025) | Products | Total Revenue |
 |---|---|---|---|---|---|---|---|
-| OUT004 | Supermarket Type2 | Tier 2 | Medium | 2009 | 16 yrs | 4,676 | **₹15,427,583** |
-| OUT003 | Departmental Store | Tier 1 | Medium | 1999 | 26 yrs | 1,349 | ₹6,673,458 |
-| OUT001 | Supermarket Type1 | Tier 2 | High | 1987 | 38 yrs | 1,586 | ₹6,223,113 |
-| OUT002 | Food Mart | Tier 3 | Small | 1998 | 27 yrs | 1,152 | ₹2,030,910 |
-| **Total** | | | | | | **8,763** | **₹30,355,064** |
+| OUT004 | Supermarket Type2 | Tier 2 | Medium | 2009 | 16 yrs | 4,676 | **$15,427,583** |
+| OUT003 | Departmental Store | Tier 1 | Medium | 1999 | 26 yrs | 1,349 | $6,673,458 |
+| OUT001 | Supermarket Type1 | Tier 2 | High | 1987 | 38 yrs | 1,586 | $6,223,113 |
+| OUT002 | Food Mart | Tier 3 | Small | 1998 | 27 yrs | 1,152 | $2,030,910 |
+| **Total** | | | | | | **8,763** | **$30,355,064** |
 
 ### Target Variable Statistics
 
 | Stat | Value |
 |---|---|
-| Min | ₹33.00 |
-| 25th Percentile | ₹2,761.72 |
-| Median | ₹3,452.34 |
-| Mean | ₹3,464.00 |
-| 75th Percentile | ₹4,145.17 |
-| Max | ₹8,000.00 |
-| Std Dev | ₹1,065.63 |
+| Min | $33.00 |
+| 25th Percentile | $2,761.72 |
+| Median | $3,452.34 |
+| Mean | $3,464.00 |
+| 75th Percentile | $4,145.17 |
+| Max | $8,000.00 |
+| Std Dev | $1,065.63 |
 
 ---
 
@@ -153,7 +153,7 @@ SuperKart/
 │  • Streamlit web app                                            │
 │  • 10 input fields (product weight, MRP, store type, etc.)      │
 │  • Calls backend API via HTTP POST                              │
-│  • Displays predicted ₹ sales revenue                           │
+│  • Displays predicted $ sales revenue                           │
 │  URL: https://gauravbarge-superkart-frontend.hf.space           │
 └─────────────────────────┬───────────────────────────────────────┘
                           │  POST /v1/predict  (JSON payload)
@@ -190,8 +190,8 @@ SuperKart/
 **Univariate Analysis:**
 - `Product_Weight`: Roughly uniform/bimodal distribution (4–22 kg); a few outliers above 20 kg.
 - `Product_Allocated_Area`: Strongly right-skewed; most products have small display area ratios.
-- `Product_MRP`: Multimodal distribution with peaks at ~₹70, ~₹130, and ~₹200 — three clear price tiers.
-- `Product_Store_Sales_Total` (target): Right-skewed; most products between ₹500–₹4,000; high-value outliers above ₹6,000.
+- `Product_MRP`: Multimodal distribution with peaks at ~$70, ~$130, and ~$200 — three clear price tiers.
+- `Product_Store_Sales_Total` (target): Right-skewed; most products between $500–$4,000; high-value outliers above $6,000.
 - `Product_Sugar_Content`: Regular (60%), Low Sugar (29%), No Sugar (11%).
 - `Product_Type`: Fruits & Vegetables, Snack Foods, and Household are the top 3 by count.
 - `Store_Id`: OUT004 accounts for ~53% of all product records.
@@ -201,9 +201,9 @@ SuperKart/
 **Bivariate Analysis:**
 - `Product_MRP` has the strongest positive correlation with the target (r ≈ 0.57).
 - `Store_Establishment_Year` has a weak negative correlation (newer stores slightly outperform).
-- OUT004 generates ₹15.4M — more than the other three stores combined.
+- OUT004 generates $15.4M — more than the other three stores combined.
 - Fruits & Vegetables and Snack Foods lead revenue in every store.
-- OUT003 (Departmental Store, Tier 1) achieves the highest per-product revenue range (₹3,070–₹8,000).
+- OUT003 (Departmental Store, Tier 1) achieves the highest per-product revenue range ($3,070–$8,000).
 
 ### Step 3 — Data Preprocessing
 
@@ -447,7 +447,7 @@ gunicorn==20.1.0
 | Product Weight | Number input | 0.0 – 50.0 kg |
 | Product Sugar Content | Selectbox | Low Sugar, Regular, No Sugar |
 | Product Allocated Area | Number input | 0.0 – 1.0 |
-| Product MRP | Number input | ₹0 – ₹500 |
+| Product MRP | Number input | $0 – $500 |
 | Store Size | Selectbox | Small, Medium, High |
 | Store Location City Type | Selectbox | Tier 1, Tier 2, Tier 3 |
 | Store Type | Selectbox | Food Mart, Supermarket Type1, Supermarket Type2, Departmental Store |
@@ -455,7 +455,7 @@ gunicorn==20.1.0
 | Store Age | Number input | 1 – 100 years |
 | Product Type Category | Selectbox | Perishables, Non Perishables |
 
-On "Predict Sales" click → sends POST to backend → displays `₹{prediction:.2f}`.
+On "Predict Sales" click → sends POST to backend → displays `${prediction:.2f}`.
 
 ### `Dockerfile`
 
@@ -655,14 +655,14 @@ print(response.json())  # {'Sales': 3512.47}
 ## 16. Key Insights & Business Recommendations
 
 ### Insight 1 — Product MRP is the Strongest Sales Lever (r = 0.57)
-Higher-priced products consistently generate more revenue. The multimodal MRP distribution reveals three price tiers (₹31–90, ₹91–180, ₹181–267).
+Higher-priced products consistently generate more revenue. The multimodal MRP distribution reveals three price tiers ($31–90, $91–180, $181–267).
 
 **Recommendation:** Actively shift product mix toward mid-range and premium items in stores with high-purchasing-power customers (Tier 1, Departmental Store). Premium pricing strategy can significantly boost revenue without needing more inventory count.
 
 ---
 
 ### Insight 2 — OUT004 Generates 51% of All Revenue
-OUT004 (Supermarket Type2, Tier 2, Medium, 16 years old) generates ₹15.4M — more than OUT001 + OUT002 + OUT003 combined. It has the most products (4,676 vs 1,152–1,586 for others).
+OUT004 (Supermarket Type2, Tier 2, Medium, 16 years old) generates $15.4M — more than OUT001 + OUT002 + OUT003 combined. It has the most products (4,676 vs 1,152–1,586 for others).
 
 **Recommendation:** Conduct a detailed audit of OUT004's product assortment, store layout, and pricing strategy. Replicate its most successful practices — particularly the Fruits & Vegetables and Snack Foods mix — in OUT001 and OUT003.
 
@@ -676,15 +676,15 @@ These two categories are top revenue contributors in every single store regardle
 ---
 
 ### Insight 4 — Tier 3 Has Volume, Tier 1 Has Value
-- Tier 3 cities: 53% of all transactions but lower per-product revenue (Food Mart model, ₹33–₹2,300).
-- Tier 1 cities: Only 24% of transactions but highest per-product revenue (₹3,070–₹8,000 in Departmental Stores).
+- Tier 3 cities: 53% of all transactions but lower per-product revenue (Food Mart model, $33–$2,300).
+- Tier 1 cities: Only 24% of transactions but highest per-product revenue ($3,070–$8,000 in Departmental Stores).
 
 **Recommendation:** Maintain separate inventory and pricing strategies by tier. Tier 3: focus on affordable staples in bulk. Tier 1: focus on premium, high-MRP products and experiential retail. Do not apply a one-size-fits-all pricing policy across tiers.
 
 ---
 
 ### Insight 5 — Food Mart (OUT002) Has Growth Potential in Tier 3
-OUT002 generates only ₹2.03M due to its small size, but it serves a Tier 3 market that has the highest transaction volume citywise.
+OUT002 generates only $2.03M due to its small size, but it serves a Tier 3 market that has the highest transaction volume citywise.
 
 **Recommendation:** Expand OUT002's footprint or open additional Food Mart outlets in other Tier 3 cities. Focus on fast-moving consumer goods (Fruits & Vegetables, Snack Foods) which are already its top sellers. A 2× expansion could capture significant untapped Tier 3 demand.
 
